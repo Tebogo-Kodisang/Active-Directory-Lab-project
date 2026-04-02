@@ -1,8 +1,10 @@
 # Active Directory Lab/Project  
 
 In this lab, I demonstrate how to:  
-- Apply real-world IT Helpdesk and System Administration skills  
+- Apply real-world IT Helpdesk and System Administration skills, including **basic networking**  
 - Deploy a Windows Server on AWS to manage IT resources for a demo company  
+- Configure **TCP/IP** settings for the server  
+- Set up **DNS** and **DHCP** services as part of the domain controller  
 - Promote the server to a Domain Controller  
 - Create and manage users and groups  
 - Reset passwords and assign permissions  
@@ -23,14 +25,16 @@ In this lab, I demonstrate how to:
 
 - I then downloaded a `.pem` key pair so that I could later connect via RDP (Remote Desktop Protocol).
 
-- AWS then assigns an instance ID and a public IP address to your instance.  
+- AWS then assigns an instance ID and a public IP address to your instance (**basic TCP/IP setup**)  
 ![EC2 ID](Screenshots/ec2_id.png)  
 ![IP Address](Screenshots/ip_address.png)
+
+- The server can use DHCP or a static IP, demonstrating basic networking skills.
 
 - I then ensured that my instance passed all status checks and was up and running.  
 ![Running Instance](Screenshots/running_instance.png)
 
-- AWS provides a public DNS link for the EC2 instance. This allows you to connect without needing to remember the IP address.  
+- AWS provides a public DNS link for the EC2 instance. This allows you to connect without needing to remember the IP address. (**DNS resolution for RDP access**) 
 Example: `ec2-13-246-3-184.af-south-1.compute.amazonaws.com`  
 This is used to identify the server when using your PC to connect via RDP.  
 ![Public DNS](Screenshots/public_dns.png)
