@@ -144,6 +144,55 @@ In this lab, I demonstrate how to:
 
 ---
 
+## Errors and Challenges
+
+During this lab, I faced some challenges and documented how I overcame them:
+
+- **“Install” button greyed out for AD DS**  
+  - On the Confirmation page, the Install button was not clickable.  
+  - **How I resolved it:** I made sure all required features and roles were selected, then clicked **Next** through the wizard until I managed to install.
+
+- **DNS delegation warning**  
+  - Message: *“A delegation for this DNS server cannot be created because the authoritative parent zone cannot be found…”*  
+  - **How I resolved it:** Since this was a brand new forest and lab environment, no action was required. I acknowledged the warning and continued.
+
+- **Error creating user: name already in use**  
+  - This happened when I was trying to create a user called `Users` or duplicate usernames.  
+  - **How I resolved it:** I used unique usernames like `John Doe` → `jdoe` and ensured there were no duplicates in AD.
+
+- **Unable to log in via RDP with non-admin users**  
+  - Error: *“The connection was denied because the user account is not authorized for remote login.”*  
+  - **How I resolved it:** I added the users to the **Remote Desktop Users** group and updated Group Policy to allow remote login.
+
+- **Password issues for new users**  
+  - Some accounts could not log in initially due to password requirements.  
+  - **How I resolved it:** I reset the passwords and made sure **User must change password at next logon** was enabled.
+
+- **Understanding AD terminology**  
+  - Terms like **forest**, **domain**, **NetBIOS name**, and **DSRM** were confusing at first.  
+  - **How I resolved it:** I learnt each concept using AI and applied them correctly during setup.
+
+- **Automating AD DS deployment with PowerShell**  
+  - I wanted a quick way to deploy the domain controller without repeating all the steps in the GUI.  
+  - **How I resolved it:** I used the PowerShell script that Windows provides after installation. It automatically sets up the domain, DNS, database, logs, and SYSVOL with the correct domain name, NetBIOS name, and forest/domain modes. This makes future deployments fast and repeatable. Here is the script:
+
+Import-Module ADDSDeployment
+
+Install-ADDSForest `
+    -CreateDnsDelegation:$false `
+    -DatabasePath "C:\Windows\NTDS" `
+    -DomainMode "Win2025" `
+    -DomainName "tebogo.lab" `
+    -DomainNetbiosName "TEBOGO" `
+    -ForestMode "Win2025" `
+    -InstallDns:$true `
+    -LogPath "C:\Windows\NTDS" `
+    -NoRebootOnCompletion:$false `
+    -SysvolPath "C:\Windows\SYSVOL" `
+    -Force:$true
+
+---
+
 ## Conclusion
 
 This project demonstrates a complete workflow for **setting up a Windows Server on AWS**, **installing Active Directory Domain Services**, promoting the server to a **Domain Controller**, **creating an Organizational Unit**, **creating users and groups**,**assigning passwords** and assigning **Remote Desktop permissions**. It showcases practical IT Helpdesk and System Administration skills, along with basic networking knowledge such as **TCP/IP**, **DNS**, and **DHCP**.
